@@ -21,7 +21,7 @@ pipeline {
                 sshagent (['ubuntu']) {
                     sh '''
                         scp -o StrictHostKeyChecking=no target/HelloWorld-0.0.1-SNAPSHOT.war ubuntu@3.6.40.50:/home/ubuntu/
-                        ssh -o StrictHostKeyChecking=no ubuntu@3.6.40.50 'sudo cp /home/ubuntu/HelloWorld-0.0.1-SNAPSHOT.war /var/lib/apache-tomcat-9.0.90/webapps/helloworld.war && sudo systemctl restart apache-tomcat-9.0.90'
+                        ssh -o StrictHostKeyChecking=no ubuntu@3.6.40.50 'sudo cp /home/ubuntu/HelloWorld-0.0.1-SNAPSHOT.war apache-tomcat-9.0.90/webapps/helloworld.war && sudo systemctl restart apache-tomcat-9.0.90'
                     '''
                 }
             }
