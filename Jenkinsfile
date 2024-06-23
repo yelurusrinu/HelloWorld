@@ -24,7 +24,7 @@ pipeline {
                     sh 'ls -l target'
                     
                     // SCP the WAR file to remote server
-                    sh 'scp -o StrictHostKeyChecking=no target/HelloWorld-0.0.1-SNAPSHOT.war ubuntu@172.31.35.81:/home/ubuntu/apache-tomcat-9.0.90/webapps/'
+                    sh 'scp -o StrictHostKeyChecking=no target/HelloWorld.war ubuntu@172.31.35.81:/home/ubuntu/apache-tomcat-9.0.90/webapps/'
                     
                     // Shutdown and restart Tomcat on the remote server
                     sh 'ssh -o StrictHostKeyChecking=no ubuntu@172.31.35.81 /home/ubuntu/apache-tomcat-9.0.90/bin/shutdown.sh'
