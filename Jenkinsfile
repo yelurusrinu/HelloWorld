@@ -13,7 +13,7 @@ pipeline {
             steps {
                  dir('HelloWorld') {
                 sh 'mvn clean package'
-                sh "mv target/*.war target/HelloWorld 0.0.1-SNAPSHOT.war"
+                sh "mv target/*.war target/HelloWorld.war"
                  }
             }
         }
@@ -24,7 +24,7 @@ pipeline {
                     sh 'ls -l target'
                     
                     // SCP the WAR file to remote server
-                    sh 'scp -o StrictHostKeyChecking=no target/HelloWorld 0.0.1-SNAPSHOT.war ubuntu@172.31.35.81:/home/ubuntu/apache-tomcat-9.0.90/webapps/'
+                    sh 'scp -o StrictHostKeyChecking=no target/HelloWorld.war ubuntu@172.31.35.81:/home/ubuntu/apache-tomcat-9.0.90/webapps/'
                     
                     sh 'ssh -o StrictHostKeyChecking=no ubuntu@172.31.35.81 sudo chown -R ubuntu:ubuntu /home/ubuntu/apache-tomcat-9.0.90/webapps/HelloWorld'
                     sh 'ssh -o StrictHostKeyChecking=no ubuntu@172.31.35.81 sudo chmod -R 755 /home/ubuntu/apache-tomcat-9.0.90/webapps/HelloWorld'
