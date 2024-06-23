@@ -11,8 +11,10 @@ pipeline {
         }
         stage('Build') {
             steps {
+                 dir('HelloWorld') {
                 sh 'mvn clean package'
                 sh "mv target/*.war target/Helloworld.war"
+                 }
             }
         }
         stage('Deploy') {
