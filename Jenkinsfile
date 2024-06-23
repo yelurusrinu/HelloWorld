@@ -8,7 +8,9 @@ pipeline {
         }
         stage('Build') {
             steps {
+                dir('HelloWorld'){
                 sh 'mvn clean package'
+                }
             }
         }
         stage('Deploy') {
