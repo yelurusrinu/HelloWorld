@@ -13,7 +13,7 @@ pipeline {
             steps {
                  dir('HelloWorld') {
                 sh 'mvn clean package'
-                sh "mv target/*.war target/HelloWorld0.0.1-SNAPSHOT.war"
+                sh "mv target/*.war target/HelloWorld 0.0.1-SNAPSHOT.war"
                  }
             }
         }
