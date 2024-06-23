@@ -20,6 +20,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 sshagent (['ubuntu']) {
+                    dir('HelloWorld') {
                     sh 'ls -l target'
                     
                     // SCP the WAR file to remote server
@@ -28,6 +29,7 @@ pipeline {
                     // Shutdown and restart Tomcat on the remote server
                     sh 'ssh -o StrictHostKeyChecking=no ubuntu@172.31.35.81 /home/ubuntu/apache-tomcat-9.0.90/bin/shutdown.sh'
                     sh 'ssh -o StrictHostKeyChecking=no ubuntu@172.31.35.81 /home/ubuntu/apache-tomcat-9.0.90/bin/startup.sh'
+                }
                 }
             }
         }
