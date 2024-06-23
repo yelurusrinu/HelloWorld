@@ -20,11 +20,14 @@ pipeline {
         stage('Deploy') {
             steps {
                 sshagent (['ubuntu']) {
-                    sh '''
-                    scp -o StrictHostKeyChecking=no target/Helloworld.war  ubuntu@172.31.35.81:/home/ubuntu/apache-tomcat-9.0.90/webapps/
-                    ssh ec2-user@172.31.35.81 /home/ubuntu/apache-tomcat-9.0.90/bin/shutdown.sh
-                    ssh ec2-user@172.31.35.81 /home/ubuntu/apache-tomcat-9.0.90/bin/startup.sh
-                    '''
+                    sh 'ls -l target'
+                    
+                    // SCP the WAR file to remote server
+                    sh 'scp -o StrictHostKeyChecking=no target/HelloWorld-0.0.1-SNAPSHOT.war ubuntu@172.31.35.81:/home/ubuntu/apache-tomcat-9.0.90/webapps/'
+                    
+                    // Shutdown and restart Tomcat on the remote server
+                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@172.31.35.81 /home/ubuntu/apache-tomcat-9.0.90/bin/shutdown.sh'
+                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@172.31.35.81 /home/ubuntu/apache-tomcat-9.0.90/bin/startup.sh'
                 }
             }
         }
