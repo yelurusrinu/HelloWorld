@@ -11,17 +11,17 @@ pipeline {
         }
         stage('Build') {
             steps {
-                dir('HelloWorld'){
                 sh 'mvn clean package'
-                }
+                sh "mv target/*.war target/Helloworld.war"
             }
         }
         stage('Deploy') {
             steps {
                 sshagent (['ubuntu']) {
                     sh '''
-                        scp -o StrictHostKeyChecking=no target/HelloWorld-0.0.1-SNAPSHOT.war ubuntu@3.6.40.50:/home/ubuntu/
-                        ssh -o StrictHostKeyChecking=no ubuntu@3.6.40.50 'sudo cp /home/ubuntu/HelloWorld-0.0.1-SNAPSHOT.war apache-tomcat-9.0.90/webapps/helloworld.war && sudo systemctl restart apache-tomcat-9.0.90'
+                    scp -o StrictHostKeyChecking=no target/Helloworld.war  ubuntu@172.31.35.81:/home/ubuntu/apache-tomcat-9.0.90/webapps/
+                    ssh ec2-user@172.31.35.81 /home/ubuntu/apache-tomcat-9.0.90/bin/shutdown.sh
+                    ssh ec2-user@172.31.35.81 /home/ubuntu/apache-tomcat-9.0.90/bin/startup.sh
                     '''
                 }
             }
